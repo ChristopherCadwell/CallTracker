@@ -1,5 +1,6 @@
 using System.Text.Json;
 using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace BowlingMachineApp
 {
@@ -326,9 +327,42 @@ namespace BowlingMachineApp
         }
         private void generateMenuItem_Click(object sender, EventArgs e)
         {
-            // The action to perform when 'Generate' is clicked
-            Console.WriteLine("'Generate' was clicked");
+            if (File.Exists(GetExcelFilePath()))
+            {
+                using (XLWorkbook workbook = new XLWorkbook(GetExcelFilePath()))
+                {
+                    var worksheet = workbook.Worksheet(1);
+
+                    // Check if a table already exists
+                    if (worksheet.Tables.Any())
+                    {
+                        var table = worksheet.Tables.First();
+
+                        // Change the theme of the table
+                        table.Theme = XLTableTheme.TableStyleMedium8;
+
+                        // Clear the data from the table
+                        var range = table.DataRange; // Gets the data range of the table
+                        range.Clear(XLClearOptions.Contents); // Clears the content of the cells in the range
+                    }
+                    else
+                    {
+                        // Create a new table if none exists
+                        var range = worksheet.RangeUsed();
+                        var table = range.CreateTable();
+                        table.Theme = XLTableTheme.TableStyleMedium8;
+                    }
+
+                    workbook.Save();
+                }
+            }
+            else
+            {
+                // Handle the case where the file doesn't exist
+                MessageBox.Show("Excel file not found. Please create a call first.");
+            }
         }
+
         private void aboutMenuItem_Click(object sender, EventArgs e)
         {
             // Show About dialogue box

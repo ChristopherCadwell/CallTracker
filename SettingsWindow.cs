@@ -61,7 +61,6 @@ namespace BowlingMachineApp
                 comboMechanics.DataSource = settings.Mechanics;
             }
         }
-
         private void btnRemoveMechanic_Click(object sender, EventArgs e)
         {
             if (comboMechanics.SelectedItem != null)
@@ -71,7 +70,6 @@ namespace BowlingMachineApp
                 comboMechanics.DataSource = settings.Mechanics;
             }
         }
-
         private void btnAddCall_Click(object sender, EventArgs e)
         {
             string newCall = Prompt.ShowDialog("Enter a new call type", "Add Call Type");
@@ -82,7 +80,6 @@ namespace BowlingMachineApp
                 comboCalls.DataSource = settings.CallTypes;
             }
         }
-
         private void btnRemoveCall_Click(object sender, EventArgs e)
         {
             if (comboCalls.SelectedItem != null)
@@ -92,7 +89,6 @@ namespace BowlingMachineApp
                 comboCalls.DataSource = settings.CallTypes;
             }
         }
-
         private void btnLogFileLocation_Click(object sender, EventArgs e)
         {
             using (var saveFileDialog = new SaveFileDialog())
@@ -110,8 +106,6 @@ namespace BowlingMachineApp
                 }
             }
         }
-
-
         private void btnSave_Click(object sender, EventArgs e)
         {
             // Check if all input fields are valid
