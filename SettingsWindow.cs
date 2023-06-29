@@ -126,7 +126,8 @@ namespace BowlingMachineApp
             settings.Lanes = new List<string>();
             for (int i = 1; i <= int.Parse(laneCounter.Text); i++)
             {
-                settings.Lanes.Add("Lane " + i);
+                // To preface with Lane: settings.Lanes.Add("Lane " + i);
+                settings.Lanes.Add(""+i);
             }
 
             settings.Mechanics = comboMechanics.Items.Cast<string>().ToList();

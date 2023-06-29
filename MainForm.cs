@@ -22,11 +22,14 @@ namespace BowlingMachineApp
                 this.buttonSubmit.Click += new System.EventHandler(this.submitButton_Click);
                 this.buttonClear.Click += new System.EventHandler(this.clearButton_Click);
                 this.calendar.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.calendar_DateChanged);
-                this.callsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.callsDataGridView_CellContentClick); // this line is important!
+                this.callsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.callsDataGridView_CellContentClick);
+
                 this.exitMenuItem.Click += new System.EventHandler(this.exitMenuItem_Click);
                 this.configureMenuItem.Click += new System.EventHandler(this.configureMenuItem_Click);
                 this.generateMenuItem.Click += new System.EventHandler(this.generateMenuItem_Click);
                 this.aboutMenuItem.Click += new System.EventHandler(this.aboutMenuItem_Click);
+                this.lightToolStripMenuItem.Click += new System.EventHandler(this.lightToolStripMenuItem_Click);
+                this.darkToolStripMenuItem.Click += new System.EventHandler(this.darkToolStripMenuItem_Click);
 
                 // Add edit button to DataGridView
                 if (!callsDataGridView.Columns.Contains("EditButton"))
@@ -105,7 +108,7 @@ namespace BowlingMachineApp
         {
             if (string.IsNullOrEmpty(dropLane.SelectedItem?.ToString()))
             {
-                ErrorBox customMessageBox = new ErrorBox("Error", "The lane field must be filled in before submitting a call.");
+                InfoBox customMessageBox = new InfoBox("Error", "The lane field must be filled in before submitting a call.");
                 customMessageBox.StartPosition = FormStartPosition.CenterParent;
                 customMessageBox.ShowDialog(this);
                 return;
@@ -113,14 +116,14 @@ namespace BowlingMachineApp
 
             if (string.IsNullOrEmpty(dropCall.SelectedItem?.ToString()))
             {
-                ErrorBox customMessageBox = new ErrorBox("Error", "The Call field must be filled in before submitting a call.");
+                InfoBox customMessageBox = new InfoBox("Error", "The Call field must be filled in before submitting a call.");
                 customMessageBox.StartPosition = FormStartPosition.CenterParent;
                 customMessageBox.ShowDialog(this);
                 return;
             }
             if (string.IsNullOrEmpty(dropMechanic.SelectedItem?.ToString()))
             {
-                ErrorBox customMessageBox = new ErrorBox("Error", "The Mechanic field must be filled in before submitting a call.");
+                InfoBox customMessageBox = new InfoBox("Error", "The Mechanic field must be filled in before submitting a call.");
                 customMessageBox.StartPosition = FormStartPosition.CenterParent;
                 customMessageBox.ShowDialog(this);
                 return;
@@ -280,10 +283,20 @@ namespace BowlingMachineApp
             foreach (var mechanic in settings.Mechanics)
                 dropMechanic.Items.Add(mechanic);
         }
+        private void lightToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Theme.ApplyLightTheme(this);
+            this.Refresh();
+        }
+        private void darkToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Theme.ApplyDarkTheme(this);
+            this.Refresh();
+        }
         private void callsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             // Check if the clicked cell is in the button column
-            if (callsDataGridView.Columns[e.ColumnIndex].Name == "EditButton")
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0 && callsDataGridView.Columns[e.ColumnIndex].Name == "EditButton")
             {
                 // Get the call from the clicked row
                 Call call = (Call)callsDataGridView.Rows[e.RowIndex].DataBoundItem;
@@ -318,8 +331,16 @@ namespace BowlingMachineApp
         }
         private void aboutMenuItem_Click(object sender, EventArgs e)
         {
-            // The action to perform when 'Generate' is clicked
-            Console.WriteLine("'About' was clicked");
+            // Show About dialogue box
+            var aboutMessage = new string[]
+            {
+                "For the latest version of this application",
+                "https://github.com/ChristopherCadwell/CallTracker/tree/main/Release"
+            };
+
+            InfoBox customMessageBox = new InfoBox("Mechanic's Call Tracker", string.Join(Environment.NewLine, aboutMessage));
+            customMessageBox.StartPosition = FormStartPosition.CenterParent;
+            customMessageBox.ShowDialog(this);
         }
         public void Reload()
         {

@@ -4,7 +4,7 @@
     <_LastSelectedProfileId>C:\Dev\CallTracker\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Update="ErrorBox.cs">
+    <Compile Update="InfoBox.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="SettingsWindow.cs">

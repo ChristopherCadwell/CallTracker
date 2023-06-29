@@ -509,7 +509,6 @@ C:\Dev\CallTracker\bin\Release\net6.0-windows\win-x64\zh-Hant\UIAutomationTypes.
 C:\Dev\CallTracker\bin\Release\net6.0-windows\win-x64\zh-Hant\WindowsBase.resources.dll
 C:\Dev\CallTracker\bin\Release\net6.0-windows\win-x64\zh-Hant\WindowsFormsIntegration.resources.dll
 C:\Dev\CallTracker\obj\Release\net6.0-windows\win-x64\BowlingMachineApp.csproj.AssemblyReference.cache
-C:\Dev\CallTracker\obj\Release\net6.0-windows\win-x64\BowlingMachineApp.ErrorBox.resources
 C:\Dev\CallTracker\obj\Release\net6.0-windows\win-x64\BowlingMachineApp.MainForm.resources
 C:\Dev\CallTracker\obj\Release\net6.0-windows\win-x64\BowlingMachineApp.SettingsWindow.resources
 C:\Dev\CallTracker\obj\Release\net6.0-windows\win-x64\BowlingMachineApp.csproj.GenerateResource.cache
@@ -523,3 +522,4 @@ C:\Dev\CallTracker\obj\Release\net6.0-windows\win-x64\refint\BowlingMachineApp.d
 C:\Dev\CallTracker\obj\Release\net6.0-windows\win-x64\BowlingMachineApp.pdb
 C:\Dev\CallTracker\obj\Release\net6.0-windows\win-x64\BowlingMachineApp.genruntimeconfig.cache
 C:\Dev\CallTracker\obj\Release\net6.0-windows\win-x64\ref\BowlingMachineApp.dll
+C:\Dev\CallTracker\obj\Release\net6.0-windows\win-x64\BowlingMachineApp.InfoBox.resources

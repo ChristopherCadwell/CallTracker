@@ -1,0 +1,7 @@
+C:\Dev\CallTracker\bin\Release\CallTracker\BowlingMachineApp.pdb
+C:\Dev\CallTracker\bin\Release\CallTracker\D3DCompiler_47_cor3.dll
+C:\Dev\CallTracker\bin\Release\CallTracker\PenImc_cor3.dll
+C:\Dev\CallTracker\bin\Release\CallTracker\PresentationNative_cor3.dll
+C:\Dev\CallTracker\bin\Release\CallTracker\vcruntime140_cor3.dll
+C:\Dev\CallTracker\bin\Release\CallTracker\wpfgfx_cor3.dll
+C:\Dev\CallTracker\bin\Release\CallTracker\BowlingMachineApp.exe
