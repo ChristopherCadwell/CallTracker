@@ -1,4 +1,4 @@
-﻿namespace BowlingMachineApp
+﻿namespace CallTracker
 {
     partial class InfoBox
     {
@@ -31,31 +31,37 @@
             labelMessage = new Label();
             buttonOK = new Button();
             SuspendLayout();
+            // 
             // labelMessage
+            // 
             labelMessage.AutoSize = true;
             labelMessage.Location = new Point(0, 30);
             labelMessage.Name = "labelMessage";
-            labelMessage.Size = new Size(75, 15);
+            labelMessage.Size = new Size(0, 15);
             labelMessage.TabIndex = 0;
             labelMessage.TextAlign = ContentAlignment.TopCenter;
+            // 
             // buttonOK
-            buttonOK.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            buttonOK.Location = new Point(0, 70);
+            // 
+            buttonOK.Dock = DockStyle.Bottom;
+            buttonOK.Location = new Point(0, 101);
             buttonOK.Name = "buttonOK";
-            buttonOK.Size = new Size(75, 23);
+            buttonOK.Size = new Size(173, 23);
             buttonOK.TabIndex = 1;
             buttonOK.Text = "OK";
             buttonOK.UseVisualStyleBackColor = true;
             buttonOK.Click += buttonOK_Click;
-            buttonOK.Dock = DockStyle.Bottom;
-            // CustomMessageBox
-            ClientSize = new Size(500, 150);
+            // 
+            // InfoBox
+            // 
+            AutoScroll = true;
+            ClientSize = new Size(173, 124);
             Controls.Add(buttonOK);
             Controls.Add(labelMessage);
-            Name = "CustomMessageBox";
+            Name = "InfoBox";
             StartPosition = FormStartPosition.CenterScreen;
-            AutoScroll = true;
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

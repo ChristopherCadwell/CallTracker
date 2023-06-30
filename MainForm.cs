@@ -1,8 +1,9 @@
 using System.Text.Json;
 using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Wordprocessing;
 
-namespace BowlingMachineApp
+namespace CallTracker
 {
     public partial class MainForm : Form
     {
@@ -111,6 +112,7 @@ namespace BowlingMachineApp
             {
                 InfoBox customMessageBox = new InfoBox("Error", "The lane field must be filled in before submitting a call.");
                 customMessageBox.StartPosition = FormStartPosition.CenterParent;
+                customMessageBox.AutoSize = true;
                 customMessageBox.ShowDialog(this);
                 return;
             }
@@ -119,6 +121,7 @@ namespace BowlingMachineApp
             {
                 InfoBox customMessageBox = new InfoBox("Error", "The Call field must be filled in before submitting a call.");
                 customMessageBox.StartPosition = FormStartPosition.CenterParent;
+                customMessageBox.AutoSize = true;
                 customMessageBox.ShowDialog(this);
                 return;
             }
@@ -126,6 +129,7 @@ namespace BowlingMachineApp
             {
                 InfoBox customMessageBox = new InfoBox("Error", "The Mechanic field must be filled in before submitting a call.");
                 customMessageBox.StartPosition = FormStartPosition.CenterParent;
+                customMessageBox.AutoSize = true;
                 customMessageBox.ShowDialog(this);
                 return;
             }
@@ -331,7 +335,10 @@ namespace BowlingMachineApp
             {
                 using (XLWorkbook workbook = new XLWorkbook(GetExcelFilePath()))
                 {
+                    var settingsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings.json");
                     var worksheet = workbook.Worksheet(1);
+                    var settingsFileContent = File.ReadAllText(settingsFilePath);
+                    var settings = JsonSerializer.Deserialize<Settings>(settingsFileContent);
 
                     // Check if a table already exists
                     if (worksheet.Tables.Any())
@@ -353,27 +360,37 @@ namespace BowlingMachineApp
                         table.Theme = XLTableTheme.TableStyleMedium8;
                     }
 
-                    workbook.Save();
+                    // Save as a new file in the reports directory
+                    var today = DateTime.Now.ToString("yyyyMMdd"); // current date in yyyyMMdd format
+                    var newFileName = $"Call Report {today}.xlsx"; // new file name
+                    var newFilePath = Path.Combine(settings.ReportsLocation, newFileName); // full path to the new file
+                    workbook.SaveAs(newFilePath); // save the workbook to the new file
                 }
             }
             else
             {
                 // Handle the case where the file doesn't exist
-                MessageBox.Show("Excel file not found. Please create a call first.");
+                InfoBox customMessageBox = new InfoBox("Error", "No Excel file found, ensure settings point to the correct file");
+                customMessageBox.StartPosition = FormStartPosition.CenterParent;
+                customMessageBox.AutoSize = true;
+                customMessageBox.ShowDialog(this);
+
             }
         }
+
 
         private void aboutMenuItem_Click(object sender, EventArgs e)
         {
             // Show About dialogue box
             var aboutMessage = new string[]
             {
-                "For the latest version of this application",
+                "           For the latest version of this application",
                 "https://github.com/ChristopherCadwell/CallTracker/tree/main/Release"
             };
 
             InfoBox customMessageBox = new InfoBox("Mechanic's Call Tracker", string.Join(Environment.NewLine, aboutMessage));
             customMessageBox.StartPosition = FormStartPosition.CenterParent;
+            customMessageBox.AutoSize = true;
             customMessageBox.ShowDialog(this);
         }
         public void Reload()

@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace BowlingMachineApp
+namespace CallTracker
 {
     public static class Theme
     {

@@ -1,4 +1,4 @@
-﻿namespace BowlingMachineApp
+﻿namespace CallTracker
 {
     partial class SettingsWindow
     {
@@ -43,6 +43,8 @@
             buttonCancel = new Button();
             buttonLogLocation = new Button();
             saveFileLocator = new SaveFileDialog();
+            buttonReportsLocation = new Button();
+            label5 = new Label();
             ((System.ComponentModel.ISupportInitialize)laneCounter).BeginInit();
             SuspendLayout();
             // 
@@ -78,9 +80,10 @@
             label4.AutoSize = true;
             label4.Location = new Point(12, 225);
             label4.Name = "label4";
-            label4.Size = new Size(80, 15);
+            label4.Size = new Size(122, 15);
             label4.TabIndex = 3;
-            label4.Text = "Save Location";
+            label4.Text = "Logfile  Save Location";
+            label4.Click += label4_Click;
             // 
             // laneCounter
             // 
@@ -91,7 +94,7 @@
             // 
             // buttonSave
             // 
-            buttonSave.Location = new Point(166, 433);
+            buttonSave.Location = new Point(35, 329);
             buttonSave.Name = "buttonSave";
             buttonSave.Size = new Size(75, 23);
             buttonSave.TabIndex = 6;
@@ -152,7 +155,7 @@
             // 
             // buttonCancel
             // 
-            buttonCancel.Location = new Point(520, 433);
+            buttonCancel.Location = new Point(154, 329);
             buttonCancel.Name = "buttonCancel";
             buttonCancel.Size = new Size(75, 23);
             buttonCancel.TabIndex = 13;
@@ -161,18 +164,38 @@
             // 
             // buttonLogLocation
             // 
-            buttonLogLocation.Location = new Point(109, 224);
+            buttonLogLocation.Location = new Point(154, 225);
             buttonLogLocation.Name = "buttonLogLocation";
             buttonLogLocation.Size = new Size(75, 23);
             buttonLogLocation.TabIndex = 14;
             buttonLogLocation.Text = "Select";
             buttonLogLocation.UseVisualStyleBackColor = true;
             // 
+            // buttonReportsLocation
+            // 
+            buttonReportsLocation.Location = new Point(154, 271);
+            buttonReportsLocation.Name = "buttonReportsLocation";
+            buttonReportsLocation.Size = new Size(75, 23);
+            buttonReportsLocation.TabIndex = 16;
+            buttonReportsLocation.Text = "Select";
+            buttonReportsLocation.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(12, 275);
+            label5.Name = "label5";
+            label5.Size = new Size(123, 15);
+            label5.TabIndex = 15;
+            label5.Text = "Reports Save Location";
+            // 
             // SettingsWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(842, 492);
+            ClientSize = new Size(434, 376);
+            Controls.Add(buttonReportsLocation);
+            Controls.Add(label5);
             Controls.Add(buttonLogLocation);
             Controls.Add(buttonCancel);
             Controls.Add(buttonMechAdd);
@@ -188,7 +211,8 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "SettingsWindow";
-            Text = "Form1";
+            Text = "Settings Wizard";
+            Load += SettingsWindow_Load;
             ((System.ComponentModel.ISupportInitialize)laneCounter).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -211,5 +235,7 @@
         private Button buttonCancel;
         private Button buttonLogLocation;
         private SaveFileDialog saveFileLocator;
+        private Button buttonReportsLocation;
+        private Label label5;
     }
 }

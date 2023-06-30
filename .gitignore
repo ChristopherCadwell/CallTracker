@@ -21,3 +21,10 @@ obj/Release/net6.0-windows/BowlingMachineApp.pdb
 obj/Release/net6.0-windows/win-x64/BowlingMachineApp.dll
 obj/Release/net6.0-windows/win-x64/BowlingMachineApp.pdb
 Properties/PublishProfiles/FolderProfile.pubxml.user
+Release/CallTracker/CallTracker.exe
+Release/CallTracker/CallTracker.pdb
+Release/CallTracker/D3DCompiler_47_cor3.dll
+Release/CallTracker/PenImc_cor3.dll
+Release/CallTracker/PresentationNative_cor3.dll
+Release/CallTracker/vcruntime140_cor3.dll
+Release/CallTracker/wpfgfx_cor3.dll

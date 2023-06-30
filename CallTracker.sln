@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BowlingMachineApp", "BowlingMachineApp.csproj", "{63124618-BAAB-4544-A2DA-3055D49DB6AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CallTracker", "CallTracker.csproj", "{63124618-BAAB-4544-A2DA-3055D49DB6AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

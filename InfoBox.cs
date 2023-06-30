@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace BowlingMachineApp
+namespace CallTracker
 {
     public partial class InfoBox : Form
     {

@@ -1,4 +1,4 @@
-﻿namespace BowlingMachineApp
+﻿namespace CallTracker
 {
     partial class MainForm
     {

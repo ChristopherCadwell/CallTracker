@@ -5,5 +5,6 @@
     public List<string> Mechanics { get; set; }
     public string LogLocation { get; set; }
     public string LogName { get; set; }
+    public string ReportsLocation { get; set; }
 
 }

@@ -1,4 +1,4 @@
-namespace BowlingMachineApp
+namespace CallTracker
 {
     internal static class Program
     {

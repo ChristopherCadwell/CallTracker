@@ -1,8 +1,9 @@
 ﻿
+using System.Numerics;
 using System.Text.Json;
 using System.Windows.Forms;
 
-namespace BowlingMachineApp
+namespace CallTracker
 {
     public partial class SettingsWindow : Form
     {
@@ -20,18 +21,20 @@ namespace BowlingMachineApp
             this.buttonMechAdd.Click += new System.EventHandler(this.btnAddMechanic_Click);
             this.buttonMechRem.Click += new System.EventHandler(this.btnRemoveMechanic_Click);
             this.buttonLogLocation.Click += new System.EventHandler(this.btnLogFileLocation_Click);
+            this.buttonReportsLocation.Click += new System.EventHandler(this.btnReportsFileLocation_Click);
             this.buttonSave.Click += new System.EventHandler(this.btnSave_Click);
             this.buttonCancel.Click += new System.EventHandler(this.btnAddCall_Click);
 
             // Ensure the settings file exists
             if (!File.Exists(settingsFilePath))
             {
-                // You can display an error message or do other error handling here
+                // Show message
                 MessageBox.Show("Settings not found, creating defaults");
+
                 // Default settings
                 Settings defaultSettings = new Settings
                 {
-                    Lanes = new List<string> { "Lane 1", "Lane 2", "Lane 3" },
+                    Lanes = new List<string> { "1", "2", "3" },
                     CallTypes = new List<string> { "Type 1", "Type 2", "Type 3" },
                     Mechanics = new List<string> { "Mechanic 1", "Mechanic 2", "Mechanic 3" }
                 };
@@ -53,7 +56,7 @@ namespace BowlingMachineApp
 
         private void btnAddMechanic_Click(object sender, EventArgs e)
         {
-            string newMechanic = Prompt.ShowDialog("Enter a new mechanic", "Add Mechanic");
+            string newMechanic = Prompt.ShowDialog("New mechanic  ", "Add Mechanic");
             if (!string.IsNullOrEmpty(newMechanic) && !settings.Mechanics.Contains(newMechanic))
             {
                 settings.Mechanics.Add(newMechanic);
@@ -72,7 +75,7 @@ namespace BowlingMachineApp
         }
         private void btnAddCall_Click(object sender, EventArgs e)
         {
-            string newCall = Prompt.ShowDialog("Enter a new call type", "Add Call Type");
+            string newCall = Prompt.ShowDialog("Enter a new call", "Add Call Type");
             if (!string.IsNullOrEmpty(newCall) && !settings.CallTypes.Contains(newCall))
             {
                 settings.CallTypes.Add(newCall);
@@ -101,18 +104,33 @@ namespace BowlingMachineApp
                 {
                     settings.LogLocation = Path.GetDirectoryName(saveFileDialog.FileName);
                     settings.LogName = Path.GetFileName(saveFileDialog.FileName);
-
-                    // You can display the selected path and filename in Labels or non-editable TextBoxes to let the user know what they have selected.
                 }
             }
         }
+        private void btnReportsFileLocation_Click(object sender, EventArgs e)
+        {
+            using (var folderDialog = new FolderBrowserDialog())
+            {
+                folderDialog.Description = "Select reports save location";
+
+                // If user selects a folder and clicks 'OK'
+                if (folderDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Set the location to the selected folder path
+                    settings.ReportsLocation = folderDialog.SelectedPath;
+                }
+            }
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             // Check if all input fields are valid
-            // You can add more validations here if needed
             if (string.IsNullOrWhiteSpace(laneCounter.Text))
             {
-                MessageBox.Show("Please enter the number of lanes.");
+                InfoBox customMessageBoxError = new InfoBox("Error", "Please enter the number of lanes.");
+                customMessageBoxError.StartPosition = FormStartPosition.CenterParent;
+                customMessageBoxError.AutoSize = true;
+                customMessageBoxError.ShowDialog(this);
                 return;
             }
 
@@ -120,8 +138,8 @@ namespace BowlingMachineApp
             settings.Lanes = new List<string>();
             for (int i = 1; i <= int.Parse(laneCounter.Text); i++)
             {
-                // To preface with Lane: settings.Lanes.Add("Lane " + i);
-                settings.Lanes.Add(""+i);
+                // ("Lane " + i);
+                settings.Lanes.Add(i + "");
             }
 
             settings.Mechanics = comboMechanics.Items.Cast<string>().ToList();
@@ -133,7 +151,11 @@ namespace BowlingMachineApp
             File.WriteAllText(settingsFilePath, settingsJson);
 
             // Inform the user that the settings have been saved successfully
-            MessageBox.Show("Settings saved successfully!");
+            InfoBox customMessageBox = new InfoBox("Info", "Settings saved successfully!");
+            customMessageBox.StartPosition = FormStartPosition.CenterParent;
+            customMessageBox.AutoSize = true;
+            customMessageBox.ShowDialog(this);
+
 
             // Get a reference to the main form and reload it
             MainForm mainForm = Application.OpenForms.OfType<MainForm>().FirstOrDefault();
@@ -151,6 +173,14 @@ namespace BowlingMachineApp
             this.Close();
         }
 
+        private void label4_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void SettingsWindow_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
