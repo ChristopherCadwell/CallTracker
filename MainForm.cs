@@ -300,24 +300,38 @@ namespace CallTracker
         }
         private void callsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Check if the clicked cell is in the button column
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0 && callsDataGridView.Columns[e.ColumnIndex].Name == "EditButton")
+            // Return immediately if the clicked cell is in the header row or column
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
             {
-                // Get the call from the clicked row
-                Call call = (Call)callsDataGridView.Rows[e.RowIndex].DataBoundItem;
+                return;
+            }
 
-                // Fill the input fields with the data of the call
-                dropLane.SelectedItem = dropLane.Items.Cast<string>().FirstOrDefault(i => i == call.Lane);
-                dropCall.SelectedItem = dropCall.Items.Cast<string>().FirstOrDefault(i => i == call.CallType);
-                dropMechanic.SelectedItem = dropMechanic.Items.Cast<string>().FirstOrDefault(i => i == call.Mechanic);
-                textDesc.Text = call.Description;
-                textAdditional.Text = call.AdditionalInformation;
-                calendar.SelectionStart = call.Date;
+            var cell = callsDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex];
 
-                // Remember which row is being edited
-                currentlyEditingRowIndex = e.RowIndex;
+            // If the cell is not empty, process the cell value.
+            if (cell.Value != null && !string.IsNullOrEmpty(cell.Value.ToString()))
+            {
+                // Check if the clicked cell is in the button column
+                if (callsDataGridView.Columns[e.ColumnIndex].Name == "EditButton")
+                {
+                    // Get the call from the clicked row
+                    Call call = (Call)callsDataGridView.Rows[e.RowIndex].DataBoundItem;
+
+                    // Fill the input fields with the data of the call
+                    dropLane.SelectedItem = dropLane.Items.Cast<string>().FirstOrDefault(i => i == call.Lane);
+                    dropCall.SelectedItem = dropCall.Items.Cast<string>().FirstOrDefault(i => i == call.CallType);
+                    dropMechanic.SelectedItem = dropMechanic.Items.Cast<string>().FirstOrDefault(i => i == call.Mechanic);
+                    textDesc.Text = call.Description;
+                    textAdditional.Text = call.AdditionalInformation;
+                    calendar.SelectionStart = call.Date;
+
+                    // Remember which row is being edited
+                    currentlyEditingRowIndex = e.RowIndex;
+                }
             }
         }
+
+
         private void exitMenuItem_Click(object sender, EventArgs e)
         {
             // The action to perform when 'Exit' is clicked

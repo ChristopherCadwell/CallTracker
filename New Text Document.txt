@@ -1,0 +1,11 @@
+Notes - Fix interact.  Add crosshair, popup  // TODO: Crosshair and pop
+Pause on inventory // Done
+
+Clipboard clipping through objects
+Look into splitting grass while walking
+Add rotate towards to AI
+Add AI speed up based on chase time - Possible slow down when going around corners
+Fix raycast // Done
+Smooth camera movements
+
+Create UI scene.  load Additively with Main
