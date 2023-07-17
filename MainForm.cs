@@ -25,13 +25,12 @@ namespace CallTracker
                 this.buttonClear.Click += new System.EventHandler(this.clearButton_Click);
                 this.calendar.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.calendar_DateChanged);
                 this.callsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.callsDataGridView_CellContentClick);
-
                 this.exitMenuItem.Click += new System.EventHandler(this.exitMenuItem_Click);
                 this.configureMenuItem.Click += new System.EventHandler(this.configureMenuItem_Click);
                 this.generateMenuItem.Click += new System.EventHandler(this.generateMenuItem_Click);
                 this.aboutMenuItem.Click += new System.EventHandler(this.aboutMenuItem_Click);
-                this.lightToolStripMenuItem.Click += new System.EventHandler(this.lightToolStripMenuItem_Click);
-                this.darkToolStripMenuItem.Click += new System.EventHandler(this.darkToolStripMenuItem_Click);
+                this.lightToolStripMenuItem.Click += new System.EventHandler(this.ThemeChange_Click);
+                this.darkToolStripMenuItem.Click += new System.EventHandler(this.ThemeChange_Click);
 
                 // Add edit button to DataGridView
                 if (!callsDataGridView.Columns.Contains("EditButton"))
@@ -288,16 +287,6 @@ namespace CallTracker
             foreach (var mechanic in settings.Mechanics)
                 dropMechanic.Items.Add(mechanic);
         }
-        private void lightToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Theme.ApplyLightTheme(this);
-            this.Refresh();
-        }
-        private void darkToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Theme.ApplyDarkTheme(this);
-            this.Refresh();
-        }
         private void callsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             // Return immediately if the clicked cell is in the header row or column
@@ -330,8 +319,6 @@ namespace CallTracker
                 }
             }
         }
-
-
         private void exitMenuItem_Click(object sender, EventArgs e)
         {
             // The action to perform when 'Exit' is clicked
@@ -391,8 +378,6 @@ namespace CallTracker
 
             }
         }
-
-
         private void aboutMenuItem_Click(object sender, EventArgs e)
         {
             // Show About dialogue box
@@ -406,6 +391,67 @@ namespace CallTracker
             customMessageBox.StartPosition = FormStartPosition.CenterParent;
             customMessageBox.AutoSize = true;
             customMessageBox.ShowDialog(this);
+        }
+        private void ThemeChange_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem clickedItem = (ToolStripMenuItem)sender;
+
+            switch (clickedItem.Text)
+            {
+                case "Light":
+                    ApplyTheme(Theme.Light);
+                    break;
+
+                case "Dark":
+                    ApplyTheme(Theme.Dark);
+                    break;
+
+                // Add cases for your other themes here...
+
+                default:
+                    break;
+            }
+        }
+        private void ApplyTheme(Theme theme)
+        {
+            this.BackColor = theme.BackColor;
+            this.ForeColor = theme.ForeColor;
+            menuStrip1.BackColor = theme.MenuBackColor;
+            menuStrip1.ForeColor = theme.MenuForeColor;
+
+            // Apply theme to all buttons
+            foreach (var control in this.Controls)
+            {
+                if (control is Button button)
+                {
+                    button.BackColor = theme.ButtonBackColor;
+                    button.ForeColor = theme.ButtonForeColor;
+                }
+                else if (control is TextBox textBox)
+                {
+                    textBox.BackColor = theme.TextBoxBackColor;
+                    textBox.ForeColor = theme.TextBoxForeColor;
+                }
+                else if (control is ComboBox comboBox)
+                {
+                    comboBox.BackColor = theme.DropDownBackColor;
+                    comboBox.ForeColor = theme.DropDownForeColor;
+                }
+                else if (control is MonthCalendar calendar)
+                {
+                    calendar.BackColor = theme.CalendarBackColor;
+                    calendar.TitleBackColor = theme.CalendarBackColor;
+                    calendar.TitleForeColor = theme.CalendarForeColor;
+                    calendar.ForeColor = theme.CalendarForeColor;
+                }
+            }
+
+            // Apply theme to DataGridView
+            callsDataGridView.DefaultCellStyle.BackColor = theme.GridBackColor;
+            callsDataGridView.DefaultCellStyle.ForeColor = theme.GridForeColor;
+            callsDataGridView.ColumnHeadersDefaultCellStyle.BackColor = theme.GridBackColor;
+            callsDataGridView.ColumnHeadersDefaultCellStyle.ForeColor = theme.GridForeColor;
+            callsDataGridView.BackgroundColor = theme.GridBackColor; // Set the blank space color in DataGridView
         }
         public void Reload()
         {
